@@ -83,7 +83,7 @@ namespace HangfireWeb
             //new code:
             app.UseHangfireDashboard("/dashboard", new DashboardOptions
             {
-                //Authorization = new[] { new MyAuthorizationFilter() }
+                Authorization = new[] { new HangfireAuthorizationFilter() }
             });
             
             BackgroundJob.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
