@@ -1,4 +1,5 @@
 using Hangfire;
+using Hangfire.Dashboard;
 using Hangfire.SqlServer;
 using HangfireWeb.Data;
 using Microsoft.AspNetCore.Builder;
@@ -59,7 +60,9 @@ namespace HangfireWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env
+            //,             UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager
+            )
         {
             if (env.IsDevelopment())
             {
@@ -83,7 +86,10 @@ namespace HangfireWeb
             //new code:
             app.UseHangfireDashboard("/dashboard", new DashboardOptions
             {
-                Authorization = new[] { new HangfireAuthorizationFilter() }
+                Authorization = new[] { new HangfireAuthorizationFilter() },
+
+                //IsReadOnlyFunc = (DashboardContext context) => true
+
             });
             
             BackgroundJob.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
