@@ -1,5 +1,6 @@
 ﻿using Hangfire;
 using HangfireWeb.Models;
+using HangfireWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -21,10 +22,8 @@ namespace HangfireWeb.Controllers
 
         public IActionResult Index()
         {
-            BackgroundJob.Enqueue(() => Console.WriteLine("Home Controller called"));
-
+            HangfireService.CreateUserJob();
             return View();
-
         }
 
         public IActionResult Privacy()
